@@ -2,6 +2,7 @@ package com.example.swplanetapi.web;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,12 @@ import com.example.swplanetapi.domain.PlanetService;
 @RestController
 @RequestMapping("/planets")
 public class PlanetController {
-    
+
     @Autowired
     private PlanetService planetService;
 
     @PostMapping
-    public ResponseEntity<Planet> create(@RequestBody Planet planet) {
+    public ResponseEntity<Planet> create(@RequestBody @Valid Planet planet) {
         Planet planetCreated = planetService.create(planet);
         return ResponseEntity.status(HttpStatus.CREATED).body(planetCreated);
     }
@@ -43,7 +44,8 @@ public class PlanetController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Planet>> list(@RequestParam(required = false) String terrain, @RequestParam(required = false) String climate) {
+    public ResponseEntity<List<Planet>> list(@RequestParam(required = false) String terrain,
+                                             @RequestParam(required = false) String climate) {
         List<Planet> planets = planetService.list(terrain, climate);
         return ResponseEntity.ok(planets);
     }
