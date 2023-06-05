@@ -68,17 +68,17 @@ public class PlanetIT {
         "/planets?climate=" + TATOOINE.getClimate(), Planet[].class);
 
     assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(sut.getBody()).hasSize(3);
+    assertThat(sut.getBody()).hasSize(1);
     assertThat(sut.getBody()[0]).isEqualTo(TATOOINE);
   }
 
   @Test
   public void listPlanets_ByTerrain_ReturnsPlanets() {
     ResponseEntity<Planet[]> sut = testRestTemplate.getForEntity(
-        "/planets?climate=" + TATOOINE.getTerrain(), Planet[].class);
+        "/planets?terrain=" + TATOOINE.getTerrain(), Planet[].class);
 
     assertThat(sut.getStatusCode()).isEqualTo(HttpStatus.OK);
-    assertThat(sut.getBody()).hasSize(3);
+    assertThat(sut.getBody()).hasSize(1);
     assertThat(sut.getBody()[0]).isEqualTo(TATOOINE);
   }
 
